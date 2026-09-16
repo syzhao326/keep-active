@@ -1,0 +1,6 @@
+.DS_Store
+*.o
+ka-arm64
+ka-x86_64
+keepactive-arm64
+keepactive-x86_64
