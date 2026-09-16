@@ -24,32 +24,32 @@
 
 **下载地址（点开后会自动下载一个压缩包）：**
 
-👉 https://github.com/syzhao326/keep-active/releases/latest/download/KeepActive.app.zip
+👉 https://github.com/syzhao326/keep-active/releases/latest/download/MeetingNotes.app.zip
 
-下载后在「访达」里**双击这个压缩包**解压，得到 **KeepActive.app**。建议把它拖到「应用程序」文件夹里。
+下载后在「访达」里**双击这个压缩包**解压，得到 **MeetingNotes.app**。建议把它拖到「应用程序」文件夹里。
 
 ## 第一次打开（重要）
 
 因为这是个人自制小程序、没有花钱做苹果认证，第一次打开需要手动允许一下：
 
-1. **双击 KeepActive**。如果弹出 “Apple 无法验证……是否包含恶意软件”，点 **“完成”**（先别点“移到废纸篓”）。
-2. 打开 **系统设置 → 隐私与安全性**，向下滚动到「安全性」区域，会看到一行 “已阻止使用 KeepActive……”，点右边的 **“仍要打开”**，按提示用指纹或密码确认。
-3. 这时 KeepActive 就会启动，屏幕**右上角菜单栏**会出现一个小杯子图标 ☕️。
+1. **双击 MeetingNotes**。如果弹出 “Apple 无法验证……是否包含恶意软件”，点 **“完成”**（先别点“移到废纸篓”）。
+2. 打开 **系统设置 → 隐私与安全性**，向下滚动到「安全性」区域，会看到一行 “已阻止使用 MeetingNotes……”，点右边的 **“仍要打开”**，按提示用指纹或密码确认。
+3. 这时 MeetingNotes 就会启动，屏幕**右上角菜单栏**会出现一个小文稿图标 📝。
 
-> 💡 想省掉上面这几步？如果家里人能帮忙，把 **KeepActive.app 用 U 盘**拷到她电脑的「应用程序」里（用 U 盘拷贝不会被系统标记为“从网上下载”），就能直接双击打开，跳过“仍要打开”。
+> 💡 想省掉上面这几步？如果家里人能帮忙，把 **MeetingNotes.app 用 U 盘**拷到她电脑的「应用程序」里（用 U 盘拷贝不会被系统标记为“从网上下载”），就能直接双击打开，跳过“仍要打开”。
 
 ## 授予「辅助功能」权限（必须做一次）
 
 macOS 规定：模拟鼠标键盘必须先授权，否则程序开着也没效果。
 
 1. 第一次启动时，程序会自动弹窗提示，并帮你打开 **系统设置 → 隐私与安全性 → 辅助功能**。
-2. 在列表里找到 **KeepActive**，把右边的**开关打开**。
-   - 如果列表里没有它：点列表下方的「**＋**」，在「应用程序」里选中 KeepActive 再打开开关。
-3. 打开开关后，程序会**自动开始工作**（无需重启）。菜单栏图标变成实心 ☕️ 就表示正在运行。
+2. 在列表里找到 **MeetingNotes**，把右边的**开关打开**。
+   - 如果列表里没有它：点列表下方的「**＋**」，在「应用程序」里选中 MeetingNotes 再打开开关。
+3. 打开开关后，程序会**自动开始工作**（无需重启）。菜单栏图标变成实心 📝 就表示正在运行。
 
 ## 平时怎么用
 
-点菜单栏那个小杯子图标，会看到菜单：
+点菜单栏那个小文稿图标，会看到菜单：
 
 - **开始 / 暂停** — 随时手动开关
 - **试打飞书一次** — 先打开飞书文档、光标点进正文，再点这个，会当面打一段字再自动删掉，用来验证
@@ -94,9 +94,12 @@ keepactive status
 
 ---
 
-# ⚙️ 配置（两个版本共用）
+# ⚙️ 配置
 
-配置文件在：`~/Library/Application Support/KeepActive/config.json`（菜单栏版点「打开配置文件…」也能打开它）。改完：菜单栏版点「暂停」再「开始」；命令行版 `stop` 再 `start`。
+两个版本各自独立、格式相同：
+
+- **菜单栏版**：`~/Library/Application Support/MeetingNotes/config.json`（点菜单「打开配置文件…」也能直接打开它）。改完点「暂停」再「开始」生效。
+- **命令行版**：`~/Library/Application Support/KeepActive/config.json`。改完 `keepactive stop` 再 `keepactive start` 生效。
 
 | 字段 | 含义 | 默认 |
 |---|---|---|
@@ -150,7 +153,7 @@ bash build-app.sh
 
 # 🧹 卸载
 
-- 菜单栏版：点图标 →「退出」；把 KeepActive.app 拖进废纸篓；到「系统设置 → 隐私与安全性 → 辅助功能」移除它的条目。
+- 菜单栏版：点图标 →「退出」；把 MeetingNotes.app 拖进废纸篓；到「系统设置 → 隐私与安全性 → 辅助功能」移除它的条目；如需彻底清理，删除 `~/Library/Application Support/MeetingNotes` 文件夹。
 - 命令行版：`keepactive stop`，再 `rm -rf "$HOME/Library/Application Support/KeepActive"`，并从 `~/.zshrc` 删掉 `alias keepactive=...` 那行。
 
 ---

@@ -1,4 +1,4 @@
-// KeepActive.app — 菜单栏版（无需终端）
+// MeetingNotes.app — 菜单栏版（无需终端）
 // 双击打开后常驻菜单栏，点图标即可开始/停止。核心逻辑与命令行版一致。
 //
 // 编译见 build-app.sh
@@ -15,16 +15,16 @@ typealias StopCheck = () -> Bool
 
 let supportDir: URL = {
     let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-    return base.appendingPathComponent("KeepActive", isDirectory: true)
+    return base.appendingPathComponent("MeetingNotes", isDirectory: true)
 }()
 let configPath = supportDir.appendingPathComponent("config.json")
-let logPath    = supportDir.appendingPathComponent("keepactive.log")
+let logPath    = supportDir.appendingPathComponent("meetingnotes.log")
 
 func ensureSupportDir() {
     try? FileManager.default.createDirectory(at: supportDir, withIntermediateDirectories: true)
 }
 
-// MARK: - 配置（与命令行版共用同一个 config.json）
+// MARK: - 配置
 
 struct Config: Codable {
     var jiggleIdleMin: Double = 35
@@ -91,7 +91,7 @@ func loadConfig() -> Config {
 
 // MARK: - 日志
 
-let logQueue = DispatchQueue(label: "keepactive.log")
+let logQueue = DispatchQueue(label: "meetingnotes.log")
 let dateFmt: DateFormatter = { let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd HH:mm:ss"; return f }()
 func log(_ msg: String) {
     let line = "[\(dateFmt.string(from: Date()))] \(msg)\n"
@@ -295,7 +295,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func buildMenu() {
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "keepactive", action: nil, keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "meetingnotes", action: nil, keyEquivalent: ""))
         menu.items.first?.isEnabled = false
         statusItem.menu = menu
         updateUI()
@@ -340,8 +340,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let running = worker.running
 
         if let btn = statusItem.button {
-            let symbol = running ? "cup.and.saucer.fill" : "cup.and.saucer"
-            btn.image = NSImage(systemSymbolName: symbol, accessibilityDescription: "KeepActive")
+            let symbol = running ? "doc.text.fill" : "doc.text"
+            btn.image = NSImage(systemSymbolName: symbol, accessibilityDescription: "MeetingNotes")
             btn.image?.isTemplate = true
         }
 
@@ -389,8 +389,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         macOS 规定：模拟鼠标键盘必须先授权。
 
         已为你打开「系统设置 → 隐私与安全性 → 辅助功能」。请：
-        1. 在列表里找到 KeepActive，把右边的开关打开
-           （若没有，点列表下方的「＋」，添加「应用程序」里的 KeepActive）
+        1. 在列表里找到 MeetingNotes，把右边的开关打开
+           （若没有，点列表下方的「＋」，添加「应用程序」里的 MeetingNotes）
         2. 打开开关后，本程序会自动开始工作（无需重启）
 
         若始终不生效，请退出本程序再重新打开一次。
